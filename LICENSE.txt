@@ -1,0 +1,37 @@
+License:
+
+Permission is granted, free of charge, to anyone who obtains a copy of this software and associated documentation files (the "Software"), 
+the rights of personal, academic and publication use.
+
+If you wish to make commercial use of this software, we also grant the permission, but we make a special and non-obligatory request: 
+Help us with some donation, we need contributions and incentives.
+
+To allow persons to whom the Software is provided or in projects used, subject to the following conditions:
+
+The above copyright notice and this permission notice must be included in all copies or substantial portions of the Software.
+
+Note that the name "Dropbox" is owned by dropbox.com.
+The dropbox.com company owns all copyrights on the name and brand.
+
+THE SOFTWARE IS PROVIDED "AS IS," WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGE, 
+USE OR OTHER LIABILITY WHETHER IN CONTRACT, TORT OR OTHERWISE, ARISING OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER CONCESSIONS OF THE SOFTWARE .
+
+
+
+
+
+Licença:
+
+É concedida permissão, gratuitamente, a qualquer pessoa que obtenha uma cópia deste software e dos arquivos de documentação associados (o "Software"), os direitos de uso pessoal, acadêmico e publicação.
+
+Se deseja fazer uso comercial deste software, também concedemos a permissão, porém fazemos um pedido especial e não obrigatório: Nos ajude com alguma doação, precisamos de contribuições e incentivos.
+
+Para permitir que pessoas a quem o Software esteja fornecido ou em projetos utilizados, sujeito às seguintes condições:
+
+O aviso de copyright acima e este aviso de permissão devem ser incluídos em todas as cópias ou partes substanciais do Software.
+
+Lembre que o nome "Dropbox" é propriedade da dropbox.com.
+A empresa dropbox.com detém todos os direitos autorais sobre o nome e a marca.
+
+O SOFTWARE É FORNECIDO "COMO ESTÁ", SEM GARANTIA DE QUALQUER TIPO, EXPRESSA OU IMPLÍCITA, INCLUINDO, MAS NÃO SE LIMITANDO ÀS GARANTIAS DE COMERCIALIZAÇÃO, APTIDÃO PARA UMA FINALIDADE ESPECÍFICA E NÃO VIOLAÇÃO. EM NENHUMA CIRCUNSTÂNCIA AUTORES OU DETENTORES DOS DIREITOS AUTORAIS SERÃO RESPONSABILIZADOS POR QUALQUER RECLAMAÇÃO, DANOS, USO OU OUTRAS RESPONSABILIDADES, SEJA EM AÇÃO DE CONTRATO, DELITO OU OUTRO, DECORRENTE DE, FORA OU EM CONEXÃO COM O SOFTWARE OU O USO OU OUTRAS CONCESSÕES DO SOFTWARE.
