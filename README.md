@@ -38,7 +38,7 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lucas_romeiro%40ho
 
 
 Support us and help us also in the original repository of Github:
-https://github.com/lucasromeiro/ArduinoESP8266DropboxManager
+https://github.com/lucasromeiro/DropboxManager
 
 
 License:
@@ -161,7 +161,7 @@ https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=lucas_romeiro%40ho
 
 
 Nos apoie e nos ajude também no repositório original do Github:
-https://github.com/lucasromeiro/ArduinoESP8266DropboxManager
+https://github.com/lucasromeiro/DropboxManager
 
 
 Licença:
