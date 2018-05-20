@@ -1,4 +1,4 @@
-<img src="https://github.com/lucasromeiro/ArduinoESP8266DropboxManager/DropboxManager/readme.png”/>
+<img src="https://raw.githubusercontent.com/lucasromeiro/ArduinoESP8266DropboxManager/master/DropboxManager/readme.png"/>
 
 DropboxManager ESP8266
 
