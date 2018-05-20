@@ -1,7 +1,7 @@
 <img src="https://raw.githubusercontent.com/lucasromeiro/ArduinoESP8266DropboxManager/master/DropboxManager/readme.png"/>
 
 DropboxManager ESP8266
-
+ 
 Copyright (c) 2018 Lucas Romeiro
 
 Author: Lucas Romeiro
