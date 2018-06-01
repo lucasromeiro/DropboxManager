@@ -21,7 +21,7 @@ const char* ssid = "...........";
 const char* password = "...........";
 
 
-DropboxManager myDrop;
+DropboxMan myDrop;
 
 
 void setup() {

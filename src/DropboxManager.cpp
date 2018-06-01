@@ -24,6 +24,7 @@ Available resources:
 -Acquisition of token.
 -Upload files.
 -Upload of strings.
+-Download of files.
 (COMING SOON!)
 
 This library does not have all the features available in the dropbox, it is constantly developing and improving!
@@ -99,8 +100,15 @@ The Replace type inserts a new file and if there is a file with the same name in
 0 to Add.
 Ex: myDrop.stringUpload("<my string here>", "/home/math/test.txt", 1);
 This function returns TRUE if it succeeded and FALSE if there was a failure!
+
+bool fileDownload (String localFile, String address, bool type);
+This function downloads files from your Dropbox to your ESP8266, to use it simply provide it with the local address where the file will be saved (SPIFFS from your esp8266), the address of which place is saved the file you want to download from your dropbox and if you want to delete the file if there is already one with the same name in your esp8266, 1 to delete and 0 to not delete! If you enter 0 and the file exists, the new one will not be downloaded.
+Ex: myDrop.fileDownload ("/test.txt", "/home/math/test.txt", 1);
+This function returns TRUE if it succeeded and FALSE if there was a failure!
+
+
 Remember to create an instance to access the library:
-Ex: DropboxManager myDrop;
+Ex: DropboxMan myDrop;
 
 See the Basic_upload example to understand better.
 
@@ -133,16 +141,18 @@ https://github.com/lucasromeiro/DropboxManager
 #include "FS.h"
 #include "DropboxManager.h"
 
-#define ver "v1.0"
+#define ver "v1.1"
 //#define debug_mode Serial
 
 
 #define upload "/2/files/upload HTTP/1.1\r\n"
+#define download "/2/files/download HTTP/1.1\r\n"
 #define host_content "Host: content.dropboxapi.com\r\n"
 #define content_type_octet "Content-Type: application/octet-stream\r\n"
 #define _accept "Accept: */*\r\n"
 #define Aut_Bearer "Authorization: Bearer "
 #define timeout_client 5000
+#define timeout_down 5000
 #define content_API "162.125.5.8"
 #define fingerprint_Content_API "9D 86 7B C9 7E 07 D7 5C 86 66 A3 E2 95 C3 B5 45 C5 1E 89 B3"
 #define main_API "162.125.5.7"
@@ -424,7 +434,128 @@ bool DropboxMan::stringUpload(String data, String address, bool type){
   }
   
 }
+bool DropboxMan::fileDownload(String localFile, String address, bool type){
+  
+  
+  
+  WiFiClientSecure client;
+  //WiFiClientSecure *client= new WiFiClientSecure;
+  #ifdef debug_mode
+    debug_mode.println("Connecting to Dropbox...");
+  #endif
+  if (!client.connect(content_API,443)){
+    #ifdef debug_mode
+      debug_mode.println("Connection failed!");
+    #endif
+    //client.close();
+    client.stop();
+    return false;
+  }
 
+  if (client.verify(fingerprint_Content_API,"content.dropboxapi.com")) {
+    #ifdef debug_mode
+      debug_mode.println("Certificate matches!");
+    #endif
+  } else {
+    #ifdef debug_mode
+      debug_mode.println("Certificate doesn't match!");
+    #endif
+  }
+
+  if(!SPIFFS.begin()){
+      #ifdef debug_mode
+        debug_mode.println("Failed to open file system...");
+      #endif
+      //client.close();
+      client.stop();
+      return false;
+  } else {
+      #ifdef debug_mode
+        debug_mode.println("Open file system successfully!");
+      #endif
+  }
+
+  
+  
+  
+ 
+
+  client.print(String("POST ") + download +
+               host_content +
+               "User-Agent: ESP8266/Arduino_Dropbox_Manager_"+(String)ver+"\r\n" +
+               (String)Aut_Bearer + (String)_token +"\r\n" +
+               _accept +
+               "Dropbox-API-Arg: {\"path\": \"" + address + "\"}\r\n\r\n"// +
+               //"Content-Length: 0\r\n\r\n"
+               );
+  
+  
+
+  #ifdef debug_mode
+    debug_mode.println("Request sent!");
+  #endif
+  uint32_t millisTimeoutClient;
+  millisTimeoutClient = millis();
+  String line;
+  bool ok;
+  ok=0;
+  while (client.connected() && ((millis()-millisTimeoutClient)<timeout_client)) {
+    line = client.readStringUntil('\n');
+    if (line == "\r") {
+      break;
+    }
+    if(line.indexOf(address+"\", \"par")!=-1){
+      ok=1;
+    }
+  }
+
+  if(ok){
+    if(type){
+      SPIFFS.remove(localFile);
+      #ifdef debug_mode
+          debug_mode.println("Old file removed!");
+      #endif 
+    }else{
+      if(SPIFFS.exists(localFile)){
+        #ifdef debug_mode
+          debug_mode.println("Aborted, file exist!");
+        #endif   
+        SPIFFS.end();
+        client.stop();
+        return false;
+      }
+    }
+      
+    
+    millisTimeoutClient = millis();
+    File files = SPIFFS.open(localFile,"a");
+    while (client.connected() && ((millis()-millisTimeoutClient)<timeout_down)) {
+      if (client.available()) {
+        millisTimeoutClient = millis();
+        yield();
+        ESP.wdtFeed();
+        files.println(client.readStringUntil('\r'));
+      }
+    }
+      
+    files.close();   
+    SPIFFS.end();
+  }
+  //client.close();
+  client.stop();
+  //delete client;
+  if (ok) {
+    #ifdef debug_mode
+      debug_mode.println("Successfull!!!");
+    #endif
+    return true;
+  } else {
+    #ifdef debug_mode
+      debug_mode.println("ERROR!!!");
+    #endif
+    return false;
+  }
+}
 
 
 

@@ -17,3 +17,4 @@ begin	KEYWORD2
 getToken	KEYWORD2
 fileUpload	KEYWORD2
 stringUpload	KEYWORD2
+fileDownload	KEYWORD2

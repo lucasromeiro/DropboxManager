@@ -24,6 +24,7 @@ Available resources:
 -Acquisition of token.
 -Upload files.
 -Upload of strings.
+-Download of files.
 (COMING SOON!)
 
 This library does not have all the features available in the dropbox, it is constantly developing and improving!
@@ -99,8 +100,14 @@ The Replace type inserts a new file and if there is a file with the same name in
 0 to Add.
 Ex: myDrop.stringUpload("<my string here>", "/home/math/test.txt", 1);
 This function returns TRUE if it succeeded and FALSE if there was a failure!
+
+bool fileDownload (String localFile, String address, bool type);
+This function downloads files from your Dropbox to your ESP8266, to use it simply provide it with the local address where the file will be saved (SPIFFS from your esp8266), the address of which place is saved the file you want to download from your dropbox and if you want to delete the file if there is already one with the same name in your esp8266, 1 to delete and 0 to not delete! If you enter 0 and the file exists, the new one will not be downloaded.
+Ex: myDrop.fileDownload ("/test.txt", "/home/math/test.txt", 1);
+This function returns TRUE if it succeeded and FALSE if there was a failure!
+
 Remember to create an instance to access the library:
-Ex: DropboxManager myDrop;
+Ex: DropboxMan myDrop;
 
 See the Basic_upload example to understand better.
 
@@ -141,6 +148,7 @@ class DropboxMan{
     String getToken(String code);
     bool fileUpload(String localFile, String address, bool type);
     bool stringUpload(String data, String address, bool type);
+    bool fileDownload(String localFile, String address, bool type);
     
   private:
     String _token;

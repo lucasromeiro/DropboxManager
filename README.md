@@ -25,6 +25,7 @@ Available resources:
 -Acquisition of token.
 -Upload files.
 -Upload of strings.
+-Download of files.
 (COMING SOON!)
 
 This library does not have all the features available in the dropbox, it is constantly developing and improving!
@@ -100,8 +101,14 @@ The Replace type inserts a new file and if there is a file with the same name in
 0 to Add.
 Ex: myDrop.stringUpload("<my string here>", "/home/math/test.txt", 1);
 This function returns TRUE if it succeeded and FALSE if there was a failure!
+
+bool fileDownload (String localFile, String address, bool type);
+This function downloads files from your Dropbox to your ESP8266, to use it simply provide it with the local address where the file will be saved (SPIFFS from your esp8266), the address of which place is saved the file you want to download from your dropbox and if you want to delete the file if there is already one with the same name in your esp8266, 1 to delete and 0 to not delete! If you enter 0 and the file exists, the new one will not be downloaded.
+Ex: myDrop.fileDownload ("/test.txt", "/home/math/test.txt", 1);
+This function returns TRUE if it succeeded and FALSE if there was a failure!
+
 Remember to create an instance to access the library:
-Ex: DropboxManager myDrop;
+Ex: DropboxMan myDrop;
 
 See the Basic_upload example to understand better.
 
@@ -150,6 +157,7 @@ Recursos disponíveis:
 -Aquisição de token.
 -Upload de arquivos.
 -Upload de strings.
+-Download de arquivos.
 (MAIS EM BREVE!)
 
 Esta biblioteca não conta com todos os recursos disponíveis no dropbox, ela está em constante desenvolvimento e melhoria!
@@ -219,8 +227,15 @@ O tipo Substituir insere um novo arquivo e se existir um arquivo com o mesmo nom
 0 para Adicionar.
 Ex: myDrop.stringUpload("<minha string aqui>","/home/math/test.txt",1);
 Essa função retorna TRUE se teve sucesso e FALSE se houve alguma falha!
+
+bool fileDownload(String localFile, String address, bool type);
+Essa função faz o download de arquivos do seu Dropbox para seu ESP8266, para usar basta fornecer a ela o endereço local onde o arquivo será salvo (SPIFFS do seu esp8266), o endereço de qual lugar está salvo o arquivo que deseja baixar do seu dropbox e se deseja apagar o arquivo caso já exista um com o mesmo nome no seu esp8266, 1 para apagar e 0 para não apagar! Caso coloque 0 e exista o arquivo, o novo não será baixado.
+Ex: myDrop.fileDownload("/test.txt","/home/math/test.txt",1);
+Essa função retorna TRUE se teve sucesso e FALSE se houve alguma falha!
+
+
 Lembre de criar uma instancia para acessar a biblioteca:
-Ex: DropboxManager myDrop;
+Ex: DropboxMan myDrop;
 
 Veja o exemplo Basic_upload para entender melhor.
 
