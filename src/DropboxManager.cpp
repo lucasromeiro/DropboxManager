@@ -356,10 +356,12 @@ bool DropboxMan::fileUpload(String localFile, String address, bool type){
   if (line.startsWith("{\"name\": \"")) {
     #ifdef debug_mode
       debug_mode.println("Successfull!!!");
+      debug_mode.println("File sent!");
     #endif
     return true;
   } else {
     #ifdef debug_mode
+      debug_mode.println("ERROR!!!");
       debug_mode.println(line);
     #endif
     return false;
@@ -424,20 +426,22 @@ bool DropboxMan::stringUpload(String data, String address, bool type){
   if (line.startsWith("{\"name\": \"")) {
     #ifdef debug_mode
       debug_mode.println("Successfull!!!");
+      debug_mode.println("File sent!");
     #endif
     return true;
   } else {
     #ifdef debug_mode
+      debug_mode.println("ERROR!!!");
       debug_mode.println(line);
     #endif
     return false;
   }
   
 }
+
 bool DropboxMan::fileDownload(String localFile, String address, bool type){
   
-  
-  
+
   WiFiClientSecure client;
   //WiFiClientSecure *client= new WiFiClientSecure;
   #ifdef debug_mode
@@ -475,11 +479,6 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
       #endif
   }
 
-  
-  
-  
- 
-
   client.print(String("POST ") + download +
                host_content +
                "User-Agent: ESP8266/Arduino_Dropbox_Manager_"+(String)ver+"\r\n" +
@@ -488,7 +487,6 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
                "Dropbox-API-Arg: {\"path\": \"" + address + "\"}\r\n\r\n"// +
                //"Content-Length: 0\r\n\r\n"
                );
-  
   
 
   #ifdef debug_mode
@@ -504,7 +502,7 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
     if (line == "\r") {
       break;
     }
-    if(line.indexOf(address+"\", \"par")!=-1){
+    if(line.indexOf("\", \"path_display\": \""+address+"\", \"")!=-1){
       ok=1;
     }
   }
@@ -525,8 +523,7 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
         return false;
       }
     }
-      
-    
+    char _buffer[1001];
     millisTimeoutClient = millis();
     File files = SPIFFS.open(localFile,"a");
     while (client.connected() && ((millis()-millisTimeoutClient)<timeout_down)) {
@@ -534,7 +531,10 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
         millisTimeoutClient = millis();
         yield();
         ESP.wdtFeed();
-        files.println(client.readStringUntil('\r'));
+
+        client.readBytes(_buffer,1000);
+        _buffer[1000]='\0';
+        files.print(_buffer);
       }
     }
       
@@ -547,11 +547,13 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
   if (ok) {
     #ifdef debug_mode
       debug_mode.println("Successfull!!!");
+      debug_mode.println("File downloaded!!!");
     #endif
     return true;
   } else {
     #ifdef debug_mode
       debug_mode.println("ERROR!!!");
+      debug_mode.println(client.readString());
     #endif
     return false;
   }
