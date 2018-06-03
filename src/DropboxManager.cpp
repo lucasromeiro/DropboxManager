@@ -141,7 +141,7 @@ https://github.com/lucasromeiro/DropboxManager
 #include "FS.h"
 #include "DropboxManager.h"
 
-#define ver "v1.1"
+#define ver "v1.1.1"
 //#define debug_mode Serial
 
 
