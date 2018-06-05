@@ -141,7 +141,7 @@ https://github.com/lucasromeiro/DropboxManager
 #include "FS.h"
 #include "DropboxManager.h"
 
-#define ver "v1.1.1"
+#define ver "v1.1.2"
 //#define debug_mode Serial
 
 
@@ -488,7 +488,7 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
                //"Content-Length: 0\r\n\r\n"
                );
   
-
+        
   #ifdef debug_mode
     debug_mode.println("Request sent!");
   #endif
@@ -496,11 +496,15 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
   millisTimeoutClient = millis();
   String line;
   bool ok;
+  uint32_t contentData;
   ok=0;
   while (client.connected() && ((millis()-millisTimeoutClient)<timeout_client)) {
     line = client.readStringUntil('\n');
     if (line == "\r") {
       break;
+    }
+    if(line.indexOf("original-content-length: ")!=-1){
+      contentData=line.substring(line.indexOf("original-content-length: ")+25).toInt();//lenght data
     }
     if(line.indexOf("\", \"path_display\": \""+address+"\", \"")!=-1){
       ok=1;
@@ -533,7 +537,14 @@ bool DropboxMan::fileDownload(String localFile, String address, bool type){
         ESP.wdtFeed();
 
         client.readBytes(_buffer,1000);
-        _buffer[1000]='\0';
+        if(contentData>=1000){
+          _buffer[1000]='\0';
+          contentData=contentData-1000;
+        }else{
+          _buffer[contentData]='\0';
+          contentData=0;
+        }
+        
         files.print(_buffer);
       }
     }
